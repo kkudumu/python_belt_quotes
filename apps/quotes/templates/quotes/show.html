@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Quotes</title>
+    </head>
+
+    <body>
+        <h5><a href="/quotes">DashBoard</a> | <a href="/logout">Log out</a></h5>
+      <div>
+          <table>
+                {%for user in poster %}
+                      <h3>Posted by {{user.name}}</h3>
+                
+                      <h3>Count: {{count}}</h3>
+                      {%for quote in quotes %}
+                      <tr>
+                         <p>{{user.name}}:  {{quote.content}}</p>
+                      </tr>
+                       {%endfor%}
+                       {%endfor%}
+          </table>
+      </div>
+    </body>
+</html>

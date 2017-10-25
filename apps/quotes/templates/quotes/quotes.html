@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Quotes</title>
+  </head>
+  <body>
+    <div>
+        <h5><a href="/logout">Logout</a></h5>
+        <h5>Welcome, <b>{{user.name}}!</b></h5>
+        <h4>Your Favorite</h4>
+        <table>
+            <tbody>
+                    {%for favorite in on_list%}
+                <tr>
+                    <td>{{favorite.content}} </td>
+                </tr>
+                <tr>
+                    <td>Posted By: <a href="/show/{{favorite.id}}">{{favorite.quote_submit.name}}</a> | <a href="/remove/{{favorite.id}}">Remove From List</a></td>
+                </tr>
+                    {%endfor%}
+            </tbody>
+        </table>
+    </div>
+        <br>
+
+    <div>
+        <h4>Quotable Quotes</h4>
+        <table>
+            <tbody>
+                {%for quote in quotes %}
+                    <tr><td><b>{{quote.quote_author}}:</b> {{quote.content}}</td></tr>
+                    <tr> 
+                        <td>Posted By:<a href="/show/{{quote.id}}">:{{quote.quote_submit.name}}</a></td>
+                        <form action="/add/{{quote.id}}" method="POST">
+                            {% csrf_token %}
+                           <td><input type="Submit" name="add" value="Add To My List"></td>
+                       </form>
+                   </tr>
+                {%endfor%}
+            </tbody>
+        </table>
+        <br>
+    </div>
+    <div>
+        <br />
+        {% if messages %}
+            <ul>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
+          {% endif %}
+    </div>
+    <div>
+        <form action="/create" method="POST">
+            <div>
+                {% csrf_token %}
+                <h3>Contribute a Quote</h3>
+                <label>Quoted By:</label>
+                <input type="text" name="quote_author" placeholder="Quoted by">
+                <label>Message:</label>
+                <textarea name="content" placeholder="Quote"></textarea>
+                <input type="submit" name="submit" value="Submit">
+            </div>
+        </form>
+    </div>
+    <br>
+  </body>
+</html>
